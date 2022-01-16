@@ -34,9 +34,18 @@ class PdfController extends Controller
         }
 
         $project = Project::find($request->project_id);
-        $user = User::where('current_project_id', $request->project_id)->where('type', 'Client')->first();
 
-        $pdf = PDF::loadView('reports.invoice', compact(['tasks', 'project', 'user']));
+        // $user = User::where('id', $request->project_id)->where('type', 'Client')->first();
+        $user = DB::table('users')
+                    ->join('projects', 'users.id', '=', 'projects.user_id')
+                    ->where('projects.id', $request->project_id)
+                    ->where('type', 'Client')
+                    ->select('users.*')
+                    ->first();
+
+        $userAdmin = User::where('type', 'Admin')->first();
+
+        $pdf = PDF::loadView('reports.invoice', compact(['tasks', 'project', 'user', 'userAdmin']));
         return $pdf->setPaper('a4')->stream('Invoice.pdf');
     }
 
@@ -46,9 +55,16 @@ class PdfController extends Controller
             ->where('project_id', $request->project_id)
             ->get();
 
-        $user = User::where('current_project_id', $request->project_id)->where('type', 'Client')->first();
+        $user = DB::table('users')
+            ->join('projects', 'users.id', '=', 'projects.user_id')
+            ->where('projects.id', $request->project_id)
+            ->where('type', 'Client')
+            ->select('users.*')
+            ->first();
 
-        $pdf = PDF::loadView('reports.report', compact(['tasks', 'user']));
+        $userAdmin = User::where('type', 'Admin')->first();
+
+        $pdf = PDF::loadView('reports.report', compact(['tasks', 'user', 'userAdmin']));
         return $pdf->setPaper('a4')->stream('Report.pdf');
     }
 }

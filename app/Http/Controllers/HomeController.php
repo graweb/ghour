@@ -32,8 +32,8 @@ class HomeController extends Controller
 
             $projectsActive = Project::all()->where('status', 1)->count();
             $projectsInactive = Project::all()->where('status', 0)->count();
-            $tasksPaid = Task::all()->where('paid', 1)->count();
-            $tasksUnpaid = Task::all()->where('paid', 0)->count();
+            $tasksPaid = Task::all()->where('paid', 1)->where('project_id', Auth::user()->current_project_id)->count();
+            $tasksUnpaid = Task::all()->where('paid', 0)->where('project_id', Auth::user()->current_project_id)->count();
         } else {
             $project = Project::find(Auth::user()->current_project_id);
             $projects = Project::where('user_id', Auth::user()->id)->where('id', '!=', Auth::user()->current_project_id)->get();

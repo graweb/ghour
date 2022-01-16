@@ -33,17 +33,17 @@ tfoot {
 		<p></p>
         <table class="table">
 			<tr>
-				<td style="font-size:11px"><strong>GRAWEB TECNOLOGIA</strong></td>
+				<td style="font-size:11px"><strong>{{ $userAdmin->company }}</strong></td>
 			</tr>
 			<tr>
-				<td style="font-size:11px">Rua Camaratuba, 398 Apto 203 - Vila Valqueire - Rio de Janeiro - Brazil</td>
+				<td style="font-size:11px">{{ $userAdmin->address }}</td>
 			</tr>
             <tr>
-				<td style="font-size:11px">graweb1@gmail.com / gustavo_grativol@hotmail.com<</td>
+				<td style="font-size:11px">{{ $userAdmin->email }}<</td>
                 <td style="font-size:11px" align="right"><strong>Data:</strong> <?php echo date('d/m/Y');?></td>
 			</tr>
             <tr>
-				<td style="font-size:11px">+55 21 96409-2597</td>
+				<td style="font-size:11px">{{ $userAdmin->contact }}</td>
                 <td style="font-size:11px" align="right"><strong>Due date</strong> <?php echo date('d/m/Y', strtotime('+1 month'));?></td>
 			</tr>
 		</table>
