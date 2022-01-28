@@ -14,7 +14,6 @@ Auth::routes();
 
 //HOME
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //PROJECTS
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
