@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Gtime</title>
+<title>{{ config('app.name', 'Ghour') }}</title>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <style type="text/css">

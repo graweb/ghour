@@ -78,7 +78,7 @@ class ProjectController extends Controller
                 Auth::user()->name,
                 date('d/m/Y H:i')
             );
-            $mail->subject('Gtime - Project Started');
+            $mail->subject('Ghour - Project Started');
             Mail::to($user->email)->send($mail);
 
             return response()->json(["message" => "The project $request->project was successfully registered."]);

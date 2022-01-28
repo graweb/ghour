@@ -115,7 +115,7 @@ class TaskController extends Controller
                 date('d/m/Y H:i'),
                 'Started'
             );
-            $mail->subject('Gtime - Task Started');
+            $mail->subject('Ghour - Task Started');
             Mail::to($user->email)->send($mail);
 
             return response()->json(["message" => "The task $request->task was successfully registered."]);
@@ -197,7 +197,7 @@ class TaskController extends Controller
                 date('d/m/Y H:i'),
                 'Finished'
             );
-            $mail->subject('Gtime - Task Finished');
+            $mail->subject('Ghour - Task Finished');
             Mail::to($user->email)->send($mail);
 
             return response()->json(["message" => "The task $request->task_stop was successfully finished."]);

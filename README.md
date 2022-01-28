@@ -1,4 +1,4 @@
-Gtime é um sistema para controle de horas feito em *Laravel e MySQL*.
+Ghour é um sistema para controle de horas feito em *Laravel e MySQL*.
 
 Instalação.
 - Clone o reposítório
