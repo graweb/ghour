@@ -22,6 +22,7 @@ class PdfController extends Controller
         {
             $tasks = DB::table('vw_tasks')
             ->where('project_id', $request->project_id)
+            ->where('paid', $request->paid)
             ->whereNotNull('end_datetime')
             ->get();
         }
@@ -29,6 +30,7 @@ class PdfController extends Controller
         {
             $tasks = DB::table('vw_tasks')
             ->where('project_id', $request->project_id)
+            ->where('paid', $request->paid)
             ->whereNull('end_datetime')
             ->get();
         }

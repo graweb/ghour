@@ -17,6 +17,11 @@
                             <option selected value="{{$project->id}}">{{$project->project}}</option>
                         @endforeach
                     </select>
+                    <label for="paid" class="col-form-label">{{ __('Paid:') }}</label>
+                    <select class="form-select" id="paid" name="paid">
+                        <option selected value="1">{{ __('Yes') }}</option>
+                        <option value="0">{{ __('No') }}</option>
+                    </select>
                     <label for="status" class="col-form-label">{{ __('Status:') }}</label>
                     <select class="form-select" id="status" name="status">
                         <option selected value="0">{{ __('Done') }}</option>
