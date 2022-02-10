@@ -64,6 +64,11 @@ $(document).ready(function () {
                 "targets": 4,
                 "className": "text-center",
                 "width": "10%"
+            },
+            {
+                "targets": 4,
+                "orderable": false,
+                "searchable": false,
             }
         ],
         columns:[

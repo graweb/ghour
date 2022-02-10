@@ -28,7 +28,6 @@
                                     @else
                                         <th>Status</th>
                                     @endif
-
                                 </tr>
                             </thead>
                         </table>
@@ -58,6 +57,11 @@ $(document).ready(function () {
         },
         columnDefs: [
             {
+                "targets": 0,
+                "className": "text-center",
+                "width": "10%"
+            },
+            {
                 "targets": 2,
                 "className": "text-center",
                 "width": "15%"
@@ -70,7 +74,9 @@ $(document).ready(function () {
             {
                 "targets": 4,
                 "className": "text-center",
-                "width": "10%"
+                "width": "10%",
+                "orderable": false,
+                "searchable": false,
             }
         ],
         columns:[

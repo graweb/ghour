@@ -27,7 +27,7 @@ class TaskController extends Controller
             $data = DB::table('tasks')
             ->join('projects', 'tasks.project_id', '=', 'projects.id')
             ->select('tasks.*', 'projects.project')
-            ->orderByDesc('tasks.id')
+            ->orderBy('tasks.id', 'desc')
             ->get();
 
         } else {
@@ -38,9 +38,10 @@ class TaskController extends Controller
             ->join('projects', 'tasks.project_id', '=', 'projects.id')
             ->select('tasks.*', 'projects.project')
             ->where('user_id', Auth::user()->id)
-            ->orderByDesc('tasks.id')
+            ->orderBy('tasks.id', 'desc')
             ->get();
         }
+
         if (request()->ajax()) {
             return datatables()->of($data)
                 ->editColumn('start_datetime', function ($data) {
@@ -55,23 +56,17 @@ class TaskController extends Controller
                 ->addColumn('action', function ($data) {
 
                     if(Auth::user()->type === 'Admin') {
-                        if(!is_null($data->end_datetime))
-                        {
+                        if(!is_null($data->end_datetime)) {
                             $button = "<button class='stopTask btn btn-info btn-sm disabled' id='" . $data->id . "'><i class='fa fa-stop'></i></button>";
-                            if($data->paid === 1)
-                            {
+                            if($data->paid === 1) {
                                 $button .= " <button class='paidTask btn btn-success btn-sm disabled' id='" . $data->id . "'><i class='fa fa-dollar'></i></button>";
-                            }
-                            else
-                            {
+                            } else {
                                 $button .= " <button class='paidTask btn btn-success btn-sm' id='" . $data->id . "'><i class='fa fa-dollar'></i></button>";
                             }
 
                             //$button .= " <button class='editTask btn btn-secondary btn-sm disabled' id='" . $data->id . "'><i class='fa fa-edit'></i></button>";
                             //$button .= " <button class='destroyTask btn btn-danger btn-sm disabled' id='" . $data->id . "'><i class='fa fa-ban'></i></button>";
-                        }
-                        else
-                        {
+                        } else {
                             $button = "<button class='stopTask btn btn-info btn-sm' id='" . $data->id . "'><i class='fa fa-stop'></i></button>";
                             $button .= " <button class='paidTask btn btn-success btn-sm' id='" . $data->id . "'><i class='fa fa-dollar'></i></button>";
                             //$button .= " <button class='editTask btn btn-secondary btn-sm' id='" . $data->id . "'><i class='fa fa-edit'></i></button>";

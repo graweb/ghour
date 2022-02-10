@@ -20,11 +20,11 @@ class UserController extends Controller
         if (request()->ajax()) {
             return datatables()->of($data)
                 ->editColumn('status', function(User $user) {
-                    if($user->status === 1)
-                    {
+                    if($user->status === 1) {
                         return '<span class="badge bg-success">Active</span>';
+                    } else {
+                        return '<span class="badge bg-danger">Inactive</span>';
                     }
-                    return '<span class="badge bg-danger">Inactive</span>';
                 })
                 ->addColumn('action', function ($data) {
                     $button = " <button class='editUser btn btn-secondary btn-sm' id='" . $data->id . "'><i class='fa fa-edit'></i></button>";

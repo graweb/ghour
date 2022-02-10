@@ -36,11 +36,11 @@ class ProjectController extends Controller
         if (request()->ajax()) {
             return datatables()->of($data)
                 ->editColumn('status', function($project) {
-                    if($project->status === 1)
-                    {
+                    if($project->status === 1) {
                         return '<span class="badge bg-success">Active</span>';
+                    } else {
+                        return '<span class="badge bg-danger">Inactive</span>';
                     }
-                    return '<span class="badge bg-danger">Inactive</span>';
                 })
                 ->addColumn('action', function ($data) {
                     $button = " <button class='editProject btn btn-secondary btn-sm' id='" . $data->id . "'><i class='fa fa-edit'></i></button>";
