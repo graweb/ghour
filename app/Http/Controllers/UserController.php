@@ -20,7 +20,7 @@ class UserController extends Controller
         if (request()->ajax()) {
             return datatables()->of($data)
                 ->editColumn('status', function(User $user) {
-                    if($user->status === 1) {
+                    if($user->status === '1') {
                         return '<span class="badge bg-success">Active</span>';
                     } else {
                         return '<span class="badge bg-danger">Inactive</span>';

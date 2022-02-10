@@ -58,7 +58,7 @@ class TaskController extends Controller
                     if(Auth::user()->type === 'Admin') {
                         if(!is_null($data->end_datetime)) {
                             $button = "<button class='stopTask btn btn-info btn-sm disabled' id='" . $data->id . "'><i class='fa fa-stop'></i></button>";
-                            if($data->paid === 1) {
+                            if($data->paid === '1') {
                                 $button .= " <button class='paidTask btn btn-success btn-sm disabled' id='" . $data->id . "'><i class='fa fa-dollar'></i></button>";
                             } else {
                                 $button .= " <button class='paidTask btn btn-success btn-sm' id='" . $data->id . "'><i class='fa fa-dollar'></i></button>";
