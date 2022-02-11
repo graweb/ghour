@@ -34,6 +34,7 @@ Route::post('/tasks/stop', [TaskController::class, 'stop'])->name('task_stop');
 Route::post('/tasks/done', [TaskController::class, 'done'])->name('task_done');
 Route::post('/tasks/paid', [TaskController::class, 'paid'])->name('task_paid');
 Route::post('/tasks/finish', [TaskController::class, 'finish'])->name('task_finish');
+Route::post('/tasks/credit', [TaskController::class, 'credit'])->name('task_credit');
 
 //USERS
 Route::get('/users', [UserController::class, 'index'])->name('users');

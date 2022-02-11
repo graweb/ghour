@@ -27,7 +27,6 @@ class TaskController extends Controller
             $data = DB::table('tasks')
             ->join('projects', 'tasks.project_id', '=', 'projects.id')
             ->select('tasks.*', 'projects.project')
-            ->orderBy('tasks.id', 'desc')
             ->get();
 
         } else {
@@ -38,7 +37,6 @@ class TaskController extends Controller
             ->join('projects', 'tasks.project_id', '=', 'projects.id')
             ->select('tasks.*', 'projects.project')
             ->where('user_id', Auth::user()->id)
-            ->orderBy('tasks.id', 'desc')
             ->get();
         }
 
@@ -58,7 +56,7 @@ class TaskController extends Controller
                     if(Auth::user()->type === 'Admin') {
                         if(!is_null($data->end_datetime)) {
                             $button = "<button class='stopTask btn btn-info btn-sm disabled' id='" . $data->id . "'><i class='fa fa-stop'></i></button>";
-                            if($data->paid === '1') {
+                            if($data->paid == '1') {
                                 $button .= " <button class='paidTask btn btn-success btn-sm disabled' id='" . $data->id . "'><i class='fa fa-dollar'></i></button>";
                             } else {
                                 $button .= " <button class='paidTask btn btn-success btn-sm' id='" . $data->id . "'><i class='fa fa-dollar'></i></button>";
@@ -218,6 +216,24 @@ class TaskController extends Controller
             return response()->json(["message" => "The task $request->task was successfully paid."]);
         } else {
             return response()->json(['message' => "Error to paid."]);
+        }
+    }
+
+    public function credit(Request $request)
+    {
+        date_default_timezone_set('America/Sao_Paulo');
+
+        $data = new Task();
+        $data->project_id = $request->project_credit_id;
+        $data->task = 'Credit';
+        $data->start_datetime = date('Y-m-d H:i:s');
+        $data->end_datetime = date('Y-m-d H:i:s', strtotime('+'.$request->credit.' minutes'));
+        $task = $data->save();
+
+        if ($task) {
+            return response()->json(["message" => "The credit $request->credit was successfully registered."]);
+        } else {
+            return response()->json(['message' => "Error registering."]);
         }
     }
 }

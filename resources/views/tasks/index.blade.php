@@ -10,6 +10,7 @@
                     <b>{{ __('Tasks') }}</b>
 
                     <small class="float-sm-right">
+                        <a onclick="newCredit()" class="btn btn-secondary btn-sm mr-2">{{ __('New Credit') }}</a>
                         <a onclick="newProject()" class="btn btn-primary btn-sm">{{ __('New Task') }}</a>
                     </small>
                 </div>
@@ -19,6 +20,7 @@
                         <table class="table table-striped table-bordered table-hover" id="taskTable">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Project</th>
                                     <th>Task</th>
                                     <th>Start Date</th>
@@ -39,6 +41,7 @@
 </div>
 
 @include('tasks.modal')
+@include('tasks.modal_credit')
 @include('tasks.modal_destroy')
 @include('tasks.modal_stop')
 @include('tasks.modal_paid')
@@ -59,12 +62,17 @@ $(document).ready(function () {
             {
                 "targets": 0,
                 "className": "text-center",
+                "visible": false,
+            },
+            {
+                "targets": 1,
+                "className": "text-left",
                 "width": "10%"
             },
             {
                 "targets": 2,
-                "className": "text-center",
-                "width": "15%"
+                "className": "text-left",
+                "width": "50%"
             },
             {
                 "targets": 3,
@@ -74,12 +82,19 @@ $(document).ready(function () {
             {
                 "targets": 4,
                 "className": "text-center",
+                "width": "15%"
+            },
+            {
+                "targets": 5,
+                "className": "text-center",
                 "width": "10%",
                 "orderable": false,
                 "searchable": false,
             }
         ],
+        "order": [[ 0, "desc" ]],
         columns:[
+            {data: 'id', name: 'id'},
             {data: 'project', name: 'project'},
             {data: 'task', name: 'task'},
             {data: 'start_datetime', name: 'start_datetime'},
@@ -105,6 +120,7 @@ function newProject()
 {
     $('#id').val('');
     $('#task').val('');
+    $('#messageValidade').html('');
     $('#modalTask').modal('show');
 }
 
@@ -381,6 +397,58 @@ function taskFinish() {
         }
     });
 }
+
+function newCredit()
+{
+    $('#credit').val('');
+    $('#messageValidadeCredit').html('');
+    $('#modalCredit').modal('show');
+}
+
+
+$('#saveCredit').on('click',function () {
+    if($('#credit').val() === '')
+    {
+        $('#messageValidadeCredit').html("Credit is required");
+    }
+    else
+    {
+        $("#saveCredit").attr("disabled", true);
+        $.ajax({
+            url : "{{route('task_credit')}}",
+            type : "post",
+            data : {
+                project_credit_id : $('#project_credit_id').val(),
+                credit : $('#credit').val(),
+                "_token" : "{{csrf_token()}}"
+            },
+            success : function (res) {
+                $('#closeModalCredit').click();
+                $('#taskTable').DataTable().ajax.reload();
+                $('#credit').val(null);
+                $("#saveCredit").attr("disabled", false);
+                $("#saveCredit").text("Save");
+
+                $.notify(res.message,
+                    {
+                        type:"success",
+                        delay:1000,
+                        animationType:"fade"
+                    },
+                );
+            },
+            error : function (xhr) {
+                $.notify(xhr.responJson.message,
+                    {
+                        type:"danger",
+                        delay:1000,
+                        animationType:"fade"
+                    },
+                );
+            }
+        });
+    }
+})
 </script>
 @endpush
 @endsection
