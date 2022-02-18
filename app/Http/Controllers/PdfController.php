@@ -24,6 +24,8 @@ class PdfController extends Controller
             ->where('project_id', $request->project_id)
             ->where('paid', $request->paid)
             ->whereNotNull('end_datetime')
+            ->where('start_datetime', '>=', date('d/m/Y', strtotime($request->start_date)))
+            ->where('end_datetime', '<=', date('d/m/Y', strtotime($request->end_date)))
             ->get();
         }
         else
@@ -32,6 +34,8 @@ class PdfController extends Controller
             ->where('project_id', $request->project_id)
             ->where('paid', $request->paid)
             ->whereNull('end_datetime')
+            ->where('start_datetime', '>=', date('d/m/Y', strtotime($request->start_date)))
+            ->where('end_datetime', '<=', date('d/m/Y', strtotime($request->end_date)))
             ->get();
         }
 
@@ -47,7 +51,10 @@ class PdfController extends Controller
 
         $userAdmin = User::where('type', 'Admin')->first();
 
-        $pdf = PDF::loadView('reports.invoice', compact(['tasks', 'project', 'user', 'userAdmin']));
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $pdf = PDF::loadView('reports.invoice', compact(['tasks', 'project', 'user', 'userAdmin', 'start_date', 'end_date']));
         return $pdf->setPaper('a4')->stream('Invoice.pdf');
     }
 

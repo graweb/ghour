@@ -31,20 +31,22 @@ tfoot {
 		<p></p>
         <p></p>
 		<p></p>
+        <p></p>
         <table class="table">
 			<tr>
 				<td style="font-size:11px"><strong>{{ $userAdmin->company }}</strong></td>
 			</tr>
 			<tr>
 				<td style="font-size:11px">{{ $userAdmin->address }}</td>
+                <td style="font-size:11px" align="right"><strong>Created at:</strong> <?php echo date('Y/m/d H:i');?></td>
 			</tr>
             <tr>
 				<td style="font-size:11px">{{ $userAdmin->email }}<</td>
-                <td style="font-size:11px" align="right"><strong>Data:</strong> <?php echo date('d/m/Y');?></td>
+                <td style="font-size:11px" align="right"><strong>Period</strong> {{ \Carbon\Carbon::parse($start_date)->format('Y/m/d') }} <strong>to</strong> {{ \Carbon\Carbon::parse($end_date)->format('Y/m/d') }}</td>
 			</tr>
             <tr>
 				<td style="font-size:11px">{{ $userAdmin->contact }}</td>
-                <td style="font-size:11px" align="right"><strong>Due date</strong> <?php echo date('d/m/Y', strtotime('+1 month'));?></td>
+                <td style="font-size:11px" align="right"><strong>Due date</strong> <?php echo date('Y/m/d', strtotime('+1 month'));?></td>
 			</tr>
 		</table>
 		<hr>

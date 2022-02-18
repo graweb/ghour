@@ -17,6 +17,13 @@
                             <option selected value="{{$project->id}}">{{$project->project}}</option>
                         @endforeach
                     </select>
+
+                    <label for="start_date" class="col-form-label">{{ __('Start Date:') }}</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control" required>
+
+                    <label for="end_date" class="col-form-label">{{ __('End Date:') }}</label>
+                    <input type="date" id="end_date" name="end_date" class="form-control" required>
+
                     <label for="paid" class="col-form-label">{{ __('Paid:') }}</label>
                     <select class="form-select" id="paid" name="paid">
                         <option selected value="1">{{ __('Yes') }}</option>
