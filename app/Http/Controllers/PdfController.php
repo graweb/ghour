@@ -23,9 +23,9 @@ class PdfController extends Controller
             $tasks = DB::table('vw_tasks')
             ->where('project_id', $request->project_id)
             ->where('paid', $request->paid)
+            ->where('start_date', '>=', $request->start_date)
+            ->where('end_date', '<=', $request->end_date)
             ->whereNotNull('end_datetime')
-            ->where('start_datetime', '>=', date('d/m/Y', strtotime($request->start_date)))
-            ->where('end_datetime', '<=', date('d/m/Y', strtotime($request->end_date)))
             ->get();
         }
         else
@@ -33,9 +33,9 @@ class PdfController extends Controller
             $tasks = DB::table('vw_tasks')
             ->where('project_id', $request->project_id)
             ->where('paid', $request->paid)
+            ->where('start_date', '>=', date('d/m/Y', strtotime($request->start_date)))
+            ->where('end_date', '<=', date('d/m/Y', strtotime($request->end_date)))
             ->whereNull('end_datetime')
-            ->where('start_datetime', '>=', date('d/m/Y', strtotime($request->start_date)))
-            ->where('end_datetime', '<=', date('d/m/Y', strtotime($request->end_date)))
             ->get();
         }
 

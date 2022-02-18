@@ -40,7 +40,9 @@ class CreateVwTasks extends Migration
                     `tasks`.`start_datetime` + INTERVAL TIMESTAMPDIFF(MINUTE,
                         `tasks`.`start_datetime`,
                         `tasks`.`end_datetime`) MINUTE,
-                    `tasks`.`end_datetime`) AS `total_seconds`
+                    `tasks`.`end_datetime`) AS `total_seconds`,
+                `tasks`.`start_datetime` AS `start_date`,
+                `tasks`.`end_datetime` AS `end_date`
             FROM
                 ((`tasks`
                 LEFT JOIN `projects` ON (`tasks`.`project_id` = `projects`.`id`))

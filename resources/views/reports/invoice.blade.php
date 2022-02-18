@@ -38,7 +38,7 @@ tfoot {
 			</tr>
 			<tr>
 				<td style="font-size:11px">{{ $userAdmin->address }}</td>
-                <td style="font-size:11px" align="right"><strong>Created at:</strong> <?php echo date('Y/m/d H:i');?></td>
+                <td style="font-size:11px" align="right"><strong>Created at</strong> <?php echo date('Y/m/d H:i');?></td>
 			</tr>
             <tr>
 				<td style="font-size:11px">{{ $userAdmin->email }}<</td>
